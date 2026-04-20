@@ -36,5 +36,5 @@ workspace = true
 optional = true
 
 [features]
-default = ["specta"]
+default = []
 specta = ["dep:specta"]

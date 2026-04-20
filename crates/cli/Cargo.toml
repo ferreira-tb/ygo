@@ -21,6 +21,7 @@ workspace = true
 
 [dependencies]
 anyhow.workspace = true
+clap.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 ygo-core.workspace = true
@@ -28,3 +29,7 @@ ygo-core.workspace = true
 [dependencies.tokio]
 workspace = true
 features = ["macros", "rt-multi-thread"]
+
+[features]
+default = []
+specta = ["ygo-core/specta"]
