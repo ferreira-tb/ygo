@@ -4,8 +4,8 @@ mod http;
 mod query;
 
 pub use crate::card::{
-  BanlistInfo, BanlistStatus, Card, CardFrameType, CardId, CardImage, CardMisc, CardPrice,
-  CardRace, CardSet, CardType,
+  BanlistInfo, BanlistStatus, Card, CardAttribute, CardFrameType, CardId, CardImage, CardMisc,
+  CardPrice, CardRace, CardSet, CardType,
 };
 pub use crate::error::{Error, Result};
 pub use crate::http::Response;
