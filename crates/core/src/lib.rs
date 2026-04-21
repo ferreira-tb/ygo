@@ -2,18 +2,13 @@ mod card;
 mod error;
 mod query;
 
-pub mod prelude {
-  pub use super::card::{
-    BanListInfo, Card, CardFrameType, CardId, CardImage, CardMisc, CardPrice, CardRace, CardSet,
-    CardType,
-  };
-  pub use super::error::{Error, Result};
-  pub use super::query::CardQuery;
-}
+pub use crate::card::{
+  BanListInfo, Card, CardFrameType, CardId, CardImage, CardMisc, CardPrice, CardRace, CardSet,
+  CardType,
+};
+pub use crate::error::{Error, Result};
+pub use crate::query::CardQuery;
 
-use crate::card::{Card, CardId};
-use crate::error::{Error, Result};
-use crate::query::CardQuery;
 use http::StatusCode;
 use http::header::CONTENT_TYPE;
 use reqwest::Client;
