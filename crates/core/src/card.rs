@@ -1,5 +1,3 @@
-use crate::error::Result;
-use crate::http::download;
 use serde::{Deserialize, Serialize};
 use strum::{Display, EnumIs, EnumString, IntoStaticStr};
 use url::Url;
@@ -409,32 +407,6 @@ pub struct CardImage {
   pub image_url: Option<Url>,
   pub image_url_cropped: Option<Url>,
   pub image_url_small: Option<Url>,
-}
-
-impl CardImage {
-  async fn download(&self, url: Option<&Url>) -> Result<Option<Vec<u8>>> {
-    if let Some(url) = url {
-      Ok(Some(download(url.clone()).await?))
-    } else {
-      Ok(None)
-    }
-  }
-
-  pub async fn download_image(&self) -> Result<Option<Vec<u8>>> {
-    self.download(self.image_url.as_ref()).await
-  }
-
-  pub async fn download_cropped_image(&self) -> Result<Option<Vec<u8>>> {
-    self
-      .download(self.image_url_cropped.as_ref())
-      .await
-  }
-
-  pub async fn download_small_image(&self) -> Result<Option<Vec<u8>>> {
-    self
-      .download(self.image_url_small.as_ref())
-      .await
-  }
 }
 
 #[remain::sorted]

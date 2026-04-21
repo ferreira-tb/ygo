@@ -6,7 +6,6 @@ use http::header::CONTENT_TYPE;
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use std::sync::LazyLock;
-use url::Url;
 
 static HTTP: LazyLock<Client> = LazyLock::new(|| {
   let user_agent = format!("ygo-rs/{}", env!("CARGO_PKG_VERSION"));
@@ -33,7 +32,7 @@ pub(crate) async fn send(query: CardQuery) -> Result<Vec<Card>> {
     .map(|raw| (raw.status(), raw))?;
 
   if status.is_success()
-    || (matches!(status, StatusCode::BAD_REQUEST)
+    || (matches!(status, StatusCode::BAD_REQUEST | StatusCode::NOT_FOUND)
       && raw
         .headers()
         .get(CONTENT_TYPE)
@@ -45,23 +44,6 @@ pub(crate) async fn send(query: CardQuery) -> Result<Vec<Card>> {
       Response::Data { data } => Ok(data),
       Response::Error { error } => Err(Error::BadRequest(error)),
     }
-  } else {
-    Err(Error::RequestFailed {
-      status: Some(status),
-      reason: raw.text().await?,
-    })
-  }
-}
-
-pub(crate) async fn download(url: Url) -> Result<Vec<u8>> {
-  let (status, raw) = HTTP
-    .get(url)
-    .send()
-    .await
-    .map(|raw| (raw.status(), raw))?;
-
-  if status.is_success() {
-    Ok(raw.bytes().await?.to_vec())
   } else {
     Err(Error::RequestFailed {
       status: Some(status),
