@@ -27,9 +27,12 @@ pub struct Card {
   pub linkmarkers: Vec<String>,
   pub linkval: Option<u8>,
   pub misc_info: Option<CardMisc>,
+  pub monster_desc: Option<String>,
   pub name: Option<String>,
+  pub pend_desc: Option<String>,
   pub r#type: Option<CardType>,
   pub race: Option<CardRace>,
+  pub scale: Option<u8>,
   pub typeline: Vec<String>,
   pub ygoprodeck_url: Option<Url>,
 }
@@ -473,6 +476,24 @@ pub struct CardMisc {
 #[cfg_attr(feature = "specta", derive(specta::Type))]
 #[serde(default)]
 pub struct BanListInfo {
-  pub ban_ocg: Option<String>,
-  pub ban_tcg: Option<String>,
+  pub ban_ocg: Option<BanListStatus>,
+  pub ban_tcg: Option<BanListStatus>,
+}
+
+#[derive(
+  Clone, Copy, Debug, Display, EnumIs, EnumString, IntoStaticStr, Deserialize, Serialize,
+)]
+#[cfg_attr(feature = "specta", derive(specta::Type))]
+pub enum BanListStatus {
+  #[serde(rename = "Forbidden")]
+  #[strum(serialize = "Forbidden")]
+  Forbidden,
+
+  #[serde(rename = "Limited")]
+  #[strum(serialize = "Limited")]
+  Limited,
+
+  #[serde(rename = "Semi-Limited")]
+  #[strum(serialize = "Semi-Limited")]
+  SemiLimited,
 }
