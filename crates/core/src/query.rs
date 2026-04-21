@@ -18,7 +18,7 @@ impl CardQuery {
   }
 
   pub async fn send(self) -> Result<Vec<Card>> {
-    crate::send(self).await
+    crate::http::send(self).await
   }
 
   #[inline]
@@ -136,6 +136,16 @@ impl CardQuery {
   #[must_use]
   pub fn sort(self, sort: &str) -> Self {
     self.append_pair("sort", sort)
+  }
+
+  #[inline]
+  #[must_use]
+  pub fn staple(self, yes: bool) -> Self {
+    if yes {
+      self.append_pair("staple", "yes")
+    } else {
+      self
+    }
   }
 
   #[inline]
