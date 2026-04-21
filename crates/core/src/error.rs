@@ -1,7 +1,7 @@
 use reqwest::StatusCode;
 use strum::EnumIs;
 
-pub type Result<T> = std::result::Result<T, Error>;
+pub type Result<T, E = Error> = std::result::Result<T, E>;
 
 #[non_exhaustive]
 #[derive(Debug, EnumIs, thiserror::Error)]
