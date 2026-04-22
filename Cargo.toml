@@ -3,7 +3,7 @@ resolver = "3"
 members = ["crates/cli", "crates/core"]
 
 [workspace.package]
-version = "0.1.7"
+version = "0.1.8"
 description = "Yu-Gi-Oh! API"
 homepage = "https://github.com/ferreira-tb/ygo"
 repository = "https://github.com/ferreira-tb/ygo"

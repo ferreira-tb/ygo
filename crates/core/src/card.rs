@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use strum::{Display, EnumIs, EnumString, IntoStaticStr};
+use strum::{Display, EnumIs, EnumIter, EnumString, IntoStaticStr, VariantArray};
 use url::Url;
 
 #[remain::sorted]
@@ -55,7 +55,17 @@ pub struct CardId(u32);
 
 #[remain::sorted]
 #[derive(
-  Clone, Copy, Debug, Display, EnumIs, EnumString, IntoStaticStr, Deserialize, Serialize,
+  Clone,
+  Copy,
+  Debug,
+  Display,
+  EnumIs,
+  EnumIter,
+  EnumString,
+  IntoStaticStr,
+  VariantArray,
+  Deserialize,
+  Serialize,
 )]
 #[cfg_attr(feature = "specta", derive(specta::Type))]
 pub enum CardAttribute {
@@ -90,7 +100,17 @@ pub enum CardAttribute {
 
 #[remain::sorted]
 #[derive(
-  Clone, Copy, Debug, Display, EnumIs, EnumString, IntoStaticStr, Deserialize, Serialize,
+  Clone,
+  Copy,
+  Debug,
+  Display,
+  EnumIs,
+  EnumIter,
+  EnumString,
+  IntoStaticStr,
+  VariantArray,
+  Deserialize,
+  Serialize,
 )]
 #[cfg_attr(feature = "specta", derive(specta::Type))]
 pub enum CardRace {
@@ -445,7 +465,17 @@ pub enum CardRace {
 
 #[remain::sorted]
 #[derive(
-  Clone, Copy, Debug, Display, EnumIs, EnumString, IntoStaticStr, Deserialize, Serialize,
+  Clone,
+  Copy,
+  Debug,
+  Display,
+  EnumIs,
+  EnumIter,
+  EnumString,
+  IntoStaticStr,
+  VariantArray,
+  Deserialize,
+  Serialize,
 )]
 #[cfg_attr(feature = "specta", derive(specta::Type))]
 pub enum CardType {
@@ -568,7 +598,17 @@ pub enum CardType {
 
 #[remain::sorted]
 #[derive(
-  Clone, Copy, Debug, Display, EnumIs, EnumString, IntoStaticStr, Deserialize, Serialize,
+  Clone,
+  Copy,
+  Debug,
+  Display,
+  EnumIs,
+  EnumIter,
+  EnumString,
+  IntoStaticStr,
+  VariantArray,
+  Deserialize,
+  Serialize,
 )]
 #[cfg_attr(feature = "specta", derive(specta::Type))]
 pub enum CardFrameType {
@@ -708,7 +748,17 @@ pub struct BanlistInfo {
 }
 
 #[derive(
-  Clone, Copy, Debug, Display, EnumIs, EnumString, IntoStaticStr, Deserialize, Serialize,
+  Clone,
+  Copy,
+  Debug,
+  Display,
+  EnumIs,
+  EnumIter,
+  EnumString,
+  IntoStaticStr,
+  VariantArray,
+  Deserialize,
+  Serialize,
 )]
 #[cfg_attr(feature = "specta", derive(specta::Type))]
 pub enum BanlistStatus {
