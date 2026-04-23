@@ -1,11 +1,12 @@
 import { writeFile } from 'node:fs/promises';
 
-const response = await fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php');
+const response = await fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php?misc=yes');
 const cards = await response.json().then((it) => it.data);
 
 let variants = {
   archetypes: new Set(),
   attributes: new Set(),
+  formats: new Set(),
   frameTypes: new Set(),
   races: new Set(),
   types: new Set(),
@@ -31,11 +32,22 @@ for (const card of cards) {
   if (typeof card.type === 'string') {
     variants.types.add(card.type);
   }
+
+  if (Array.isArray(card.misc_info)) {
+    for (const misc of card.misc_info) {
+      if (Array.isArray(misc.formats)) {
+        for (const format of misc.formats) {
+          variants.formats.add(format);
+        }
+      }
+    }
+  }
 }
 
 variants = {
   archetypes: Array.from(variants.archetypes).sort(),
   attributes: Array.from(variants.attributes).sort(),
+  formats: Array.from(variants.formats).sort(),
   frameTypes: Array.from(variants.frameTypes).sort(),
   races: Array.from(variants.races).sort(),
   types: Array.from(variants.types).sort(),
