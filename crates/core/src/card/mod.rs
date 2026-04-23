@@ -1,5 +1,6 @@
 mod attribute;
 mod banlist;
+mod format;
 mod frame_type;
 mod race;
 mod r#type;
@@ -9,6 +10,7 @@ use url::Url;
 
 pub use attribute::CardAttribute;
 pub use banlist::{BanlistInfo, BanlistStatus};
+pub use format::CardFormat;
 pub use frame_type::CardFrameType;
 pub use race::CardRace;
 pub use r#type::CardType;
@@ -44,6 +46,16 @@ pub struct Card {
   pub scale: Option<u8>,
   pub typeline: Vec<String>,
   pub ygoprodeck_url: Option<Url>,
+}
+
+impl Card {
+  pub fn formats(&self) -> impl Iterator<Item = CardFormat> {
+    self
+      .misc_info
+      .iter()
+      .flat_map(|misc| misc.formats.iter())
+      .copied()
+  }
 }
 
 #[derive(
@@ -107,7 +119,7 @@ pub struct CardMisc {
   pub beta_id: Option<u32>,
   pub beta_name: Option<String>,
   pub downvotes: Option<u32>,
-  pub formats: Vec<String>,
+  pub formats: Vec<CardFormat>,
   pub has_effect: Option<u8>,
   pub konami_id: Option<u32>,
   pub md_rarity: Option<String>,
