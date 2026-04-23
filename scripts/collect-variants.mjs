@@ -4,6 +4,7 @@ const response = await fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php');
 const cards = await response.json().then((it) => it.data);
 
 let variants = {
+  archetypes: new Set(),
   attributes: new Set(),
   frameTypes: new Set(),
   races: new Set(),
@@ -11,6 +12,10 @@ let variants = {
 };
 
 for (const card of cards) {
+  if (typeof card.archetype === 'string') {
+    variants.archetypes.add(card.archetype);
+  }
+
   if (typeof card.attribute === 'string') {
     variants.attributes.add(card.attribute);
   }
@@ -29,6 +34,7 @@ for (const card of cards) {
 }
 
 variants = {
+  archetypes: Array.from(variants.archetypes).sort(),
   attributes: Array.from(variants.attributes).sort(),
   frameTypes: Array.from(variants.frameTypes).sort(),
   races: Array.from(variants.races).sort(),

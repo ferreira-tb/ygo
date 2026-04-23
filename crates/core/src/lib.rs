@@ -15,6 +15,10 @@ pub async fn all() -> Result<Vec<Card>> {
   CardQuery::new().send().await
 }
 
+pub async fn all_with_misc() -> Result<Vec<Card>> {
+  CardQuery::new().misc(true).send().await
+}
+
 pub async fn archetype(archetype: &str) -> Result<Vec<Card>> {
   CardQuery::new()
     .archetype(archetype)
