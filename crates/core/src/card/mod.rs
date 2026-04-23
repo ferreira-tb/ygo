@@ -121,7 +121,7 @@ pub struct CardMisc {
   pub downvotes: Option<u32>,
   pub formats: Vec<CardFormat>,
   pub has_effect: Option<u8>,
-  pub konami_id: Option<u32>,
+  pub konami_id: Option<i32>,
   pub md_rarity: Option<String>,
   pub ocg_date: Option<String>,
   pub question_atk: Option<u8>,

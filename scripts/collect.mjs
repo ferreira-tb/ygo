@@ -58,3 +58,9 @@ await writeFile(
   JSON.stringify(variants, null, 2),
   { encoding: 'utf-8' },
 );
+
+await writeFile(
+  '.temp/cards.json',
+  JSON.stringify(cards, null, 2),
+  { encoding: 'utf-8' },
+);

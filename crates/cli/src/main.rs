@@ -1,11 +1,15 @@
 use anyhow::Result;
 use clap::Parser;
+use serde_json::to_string_pretty;
 use ygo::{CardRace, CardType};
 use ygo_core::CardQuery;
 
 #[derive(Parser)]
 struct Cli {
   name: String,
+
+  #[arg(long)]
+  all: bool,
 
   #[arg(long)]
   archetype: Option<String>,
@@ -65,6 +69,19 @@ struct Cli {
 #[tokio::main]
 async fn main() -> Result<()> {
   let args = Cli::parse();
+  let query = if args.all {
+    CardQuery::new()
+  } else {
+    build_query(args)
+  };
+
+  let cards = query.send().await?;
+  println!("{}", to_string_pretty(&cards)?);
+
+  Ok(())
+}
+
+fn build_query(args: Cli) -> CardQuery {
   let mut query = CardQuery::new()
     .fname(&args.name)
     .misc(args.misc)
@@ -134,8 +151,5 @@ async fn main() -> Result<()> {
     query = query.r#type(r#type);
   }
 
-  let cards = query.send().await?;
-  println!("{}", serde_json::to_string_pretty(&cards)?);
-
-  Ok(())
+  query
 }
